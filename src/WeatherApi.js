@@ -5,7 +5,7 @@ async function fetchWeather (url) {
   const res  = await window.fetch(url);
   const json = await res.json();
 
-  if (json.cod != 200)
+  if (json.cod !== 200)
     throw new Error(json.message);
 
   return {
