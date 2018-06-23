@@ -2,6 +2,7 @@
   "name": "weather_example",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://miwwa.github.io/weather_test",
   "dependencies": {
     "bulma": "^0.7.1",
     "mobx": "^5.0.3",
