@@ -17,7 +17,11 @@ class CityInput extends React.Component {
             }}>
         <div className="field has-addons">
           <div className="control">
-            <input className="input" type="text" name="city" placeholder="Enter city name"/>
+            <input className="input"
+                   type="text"
+                   name="city"
+                   placeholder="Enter city name"
+                   disabled={store.state.loading}/>
             <p className="help is-danger">{store.state.error}</p>
           </div>
           <div className="control">

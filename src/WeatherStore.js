@@ -4,7 +4,8 @@ const WeatherCacheKey = 'weather';
 const ErrorsText      = {
   AlreadyInList: 'City already in list',
   NotString:     'City must be a string',
-  StringEmpty:   'Input are empty'
+  StringEmpty:   'Input are empty',
+  InvalidCoords: 'Invalid coordinated'
 };
 
 class WeatherStore {
@@ -38,11 +39,30 @@ class WeatherStore {
       return;
     }
 
+    return await this._addCity(this.api.fetchByCityName, cityName);
+  }
+
+  /**
+   * Add city by coordinates
+   * @param coords {object}
+   * @returns {Promise<void>}
+   */
+  @action
+  async addCityByCoords (coords) {
+    if (!coords.lat || !coords.lon) {
+      this.state.error = ErrorsText.InvalidCoords;
+      return;
+    }
+
+    return await this._addCity(this.api.fetchByCoords, coords);
+  }
+
+  async _addCity (fetchFunction, arg) {
     this.state.loading = true;
     this.state.error   = null;
 
     try {
-      const result = await this.api.fetchByCityName(cityName);
+      const result = await fetchFunction(arg);
       if (this.citiesList.filter(city => city.id === result.id).length > 0) {
         this.state.error = ErrorsText.AlreadyInList;
       } else {
@@ -70,7 +90,7 @@ class WeatherStore {
       Object.assign(city, {
         ...result,
         updatedAt: Date.now(),
-        loading: false
+        loading:   false
       });
       WeatherStore._saveToCache(this.citiesList);
     } catch (e) {
@@ -87,6 +107,27 @@ class WeatherStore {
     this.citiesList.remove(city);
     WeatherStore._saveToCache(this.citiesList);
   }
+
+  @action
+  getMyLocation = () => {
+    return new Promise((resolve, reject) => {
+      this.state.loading = true;
+      this.state.error   = null;
+      window.navigator.geolocation.getCurrentPosition(
+        position => {
+          this.state.loading = false;
+          resolve({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          });
+        },
+        error => {
+          this.state.error   = error.message;
+          this.state.loading = false;
+          reject(error);
+        });
+    });
+  };
 
   /**
    * Validate city name

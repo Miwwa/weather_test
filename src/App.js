@@ -6,6 +6,7 @@ import PropTytes from 'prop-types';
 import CityInput from './CityInput';
 import WeatherCard from './WeatherCard';
 import WeatherStore from './WeatherStore';
+import MyGeoButton from './MyGeoButton';
 
 @observer(['store'])
 class App extends Component {
@@ -14,7 +15,12 @@ class App extends Component {
     return (
       <div className="container">
         <div className="navbar has-text-centered">
-          <div className="navbar-item"><CityInput/></div>
+          <div className="navbar-item">
+            <CityInput/>
+          </div>
+          <div className="navbar-item">
+            <MyGeoButton/>
+          </div>
         </div>
         <div className="section weather">
           {store.citiesList.map(city => <WeatherCard key={city.id} city={city}/>)}
