@@ -10,6 +10,19 @@ import MyGeoButton from './MyGeoButton';
 
 @observer(['store'])
 class App extends Component {
+  async componentDidMount () {
+    const isFirstRun = window.localStorage.getItem('firstRun');
+    window.localStorage.setItem('firstRun', 'false');
+    if (isFirstRun === null) {
+      try {
+        const coords = await this.props.store.getMyLocation();
+        await this.props.store.addCityByCoords(coords);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
   render () {
     const {store} = this.props;
     return (

@@ -11,9 +11,8 @@ class MyGeoButton extends React.Component {
     try {
       const coords = await this.props.store.getMyLocation();
       await this.props.store.addCityByCoords(coords);
-    }
-    catch (e) {
-
+    } catch (err) {
+      console.error(err);
     }
   };
 
