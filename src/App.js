@@ -36,7 +36,12 @@ class App extends Component {
           </div>
         </div>
         <div className="section weather">
-          {store.citiesList.map(city => <WeatherCard key={city.id} city={city}/>)}
+          {store.citiesList.map(city => (
+            <WeatherCard
+              key={city.id}
+              city={city}
+            />
+          ))}
         </div>
       </div>
     );

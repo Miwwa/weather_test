@@ -14,36 +14,33 @@ class WeatherCard extends React.Component {
     return (
       <div className="card card-weather">
         <div className="card-content">
-          <button className="delete is-pulled-right" onClick={e => {
-            e.preventDefault();
-            store.removeCity(city);
-          }}/>
+          <button
+            className="delete is-pulled-right"
+            onClick={e => {
+              e.preventDefault();
+              store.removeCity(city);
+            }}
+          />
           <div className="title">{city.name}</div>
           <div className="subtitle is-size-7">Updated at {updatedAt}</div>
           <div className="level">
             <div className="level-item">
-              <img src={`https://openweathermap.org/img/w/${city.weather.icon}.png`}
-                   alt={city.weather.description}/>
+              <img
+                src={`https://openweathermap.org/img/w/${city.weather.icon}.png`}
+                alt={city.weather.description}
+              />
             </div>
             <div className="level-item is-size-4">{city.temp}°C</div>
           </div>
-{/*          <div className="columns">
-            <div className="column is-narrow">
-              <div>Weather</div>
-              <div>Wind</div>
-            </div>
-            <div className="column">
-              <div>Weather</div>
-              <div>Wind</div>
-            </div>
-          </div>*/}
           <div className="has-text-centered">
-            <button className={['button', 'is-primary', city.loading && 'is-loading'].join(' ')}
-                    disabled={city.loading}
-                    onClick={e => {
-                      e.preventDefault();
-                      store.updateCity(city);
-                    }}>
+            <button
+              className={['button', 'is-primary', city.loading && 'is-loading'].join(' ')}
+              disabled={city.loading}
+              onClick={e => {
+                e.preventDefault();
+                store.updateCity(city);
+              }}
+            >
               Update
             </button>
           </div>

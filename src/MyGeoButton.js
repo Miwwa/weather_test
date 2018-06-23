@@ -19,13 +19,17 @@ class MyGeoButton extends React.Component {
   render () {
     const {store} = this.props;
     return (
-      <form className="field is-horizontal"
-            onSubmit={this.handleClick}>
+      <form
+        className="field is-horizontal"
+        onSubmit={this.handleClick}
+      >
         <div className="field">
           <div className="control">
-            <button className={['button', 'is-primary', store.state.loading && 'is-loading'].join(' ')}
-                    disabled={store.state.loading}
-                    type="submit">
+            <button
+              className={['button', 'is-primary', store.state.loading && 'is-loading'].join(' ')}
+              disabled={store.state.loading}
+              type="submit"
+            >
               Load by my location
             </button>
           </div>
